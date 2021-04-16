@@ -27,3 +27,18 @@
     loop: 
     - /root/playbooks/files/lighttpd.conf 
     - /root/playbooks/files/mime-types.conf
+  - name: Garatindo diretórios
+    file:
+      path: '{{ item }}'
+      owner: '{{ user }}'
+      group: '{{ group }}'
+      state: directory 
+    loop:
+    - /srv/www/html
+    - /var/cache/lighttpd
+    - /var/logs/lighttpd 
+  - name: Garantindo serviço do Lighttpd
+    service:
+      name: lighttpd
+      state: started
+      enabled: yes    
